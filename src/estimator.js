@@ -37,13 +37,9 @@ const covid19ImpactEstimator = (data) => {
   // eslint variable name length fix
   const pop = data.region.avgDailyIncomePopulation;
   const avg = data.region.avgDailyIncomeInUSD;
-  let rate = 0;
-  if (data.periodType === 'days') rate = data.timeToElapse;
-  else if (data.periodType === 'weeks') rate = data.timeToElapse * 7;
-  else if (data.periodType === 'months') rate = data.timeToElapse * 30;
-
-  impact.dollarsInFlight = impact.infectionsByRequestedTime * pop * avg * rate;
-  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * pop * avg * rate;
+  const sev = severeImpact.infectionsByRequestedTime;
+  impact.dollarsInFlight = Math.trunc(impact.infectionsByRequestedTime * pop * avg * time);
+  severeImpact.dollarsInFlight = Math.trunc(sev * pop * avg * time);
 
   return {
     impact,

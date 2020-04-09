@@ -40,7 +40,6 @@ const covid19ImpactEstimator = (data) => {
   const sev = severeImpact.infectionsByRequestedTime;
   impact.dollarsInFlight = Math.trunc((impact.infectionsByRequestedTime * pop * avg) / time);
   severeImpact.dollarsInFlight = Math.trunc((sev * pop * avg) / time);
-);
 
   return {
     impact,

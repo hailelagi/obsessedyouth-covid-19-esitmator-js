@@ -4,20 +4,20 @@ const covid19ImpactEstimator = (data) => {
   let time;
 
   // challenge one
-  impact.currentlyInfected = data.reportedCases * 10;
-  severeImpact.currentlyInfected = data.reportedCases * 50;
+  impact.currentlyInfected = Math.trunc(data.reportedCases * 10);
+  severeImpact.currentlyInfected = Math.trunc(data.reportedCases * 50);
 
   // period estimations
   if (data.periodType === 'days') time = 2 ** Math.trunc(data.timeToElapse / 3);
   else if (data.periodType === 'weeks') time = 2 ** Math.trunc((data.timeToElapse * 7) / 3);
   else if (data.periodType === 'months') time = 2 ** Math.trunc((data.timeToElapse * 30) / 3);
 
-  impact.infectionsByRequestedTime = impact.currentlyInfected * time;
-  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * time;
+  impact.infectionsByRequestedTime = Math.trunc(impact.currentlyInfected * time);
+  severeImpact.infectionsByRequestedTime = Math.trunc(severeImpact.currentlyInfected * time);
 
   // challenge two
-  impact.severeCasesByRequestedTime = 0.15 * impact.infectionsByRequestedTime;
-  severeImpact.severeCasesByRequestedTime = 0.15 * severeImpact.infectionsByRequestedTime;
+  impact.severeCasesByRequestedTime = Math.trunc(0.15 * impact.infectionsByRequestedTime);
+  severeImpact.severeCasesByRequestedTime = Math.trunc(0.15 * severeImpact.infectionsByRequestedTime);
 
   const bedAvailability = 0.35 * data.totalHospitalBeds;
   // eslint variable name length fix, guideline variables are extremely long
@@ -42,8 +42,9 @@ const covid19ImpactEstimator = (data) => {
   else if (data.periodType === 'weeks') time = data.timeToElapse * 7;
   else if (data.periodType === 'months') time = data.timeToElapse * 30;
 
-  impact.dollarsInFlight = impact.infectionsByRequestedTime * pop * avg * time;
-  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * pop * avg * time;
+  const cashFlow = pop * avg * time;
+  impact.dollarsInFlight = (impact.infectionsByRequestedTime * cashFlow).toFixed(2);
+  severeImpact.dollarsInFlight = (severeImpact.infectionsByRequestedTime * cashFlow).toFixed(2);
 
   return {
     impact,

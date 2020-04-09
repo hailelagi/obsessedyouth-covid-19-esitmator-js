@@ -21,16 +21,19 @@ const covid19ImpactEstimator = (data) => {
 
   const bedAvailability = 0.35 * data.totalHospitalBeds;
   // eslint variable name length fix, guideline variables are extremely long
-  const bed = bedAvailability;
-  impact.hospitalBedsByRequestedTime = bedAvailability - impact.severeCasesByRequestedTime;
-  severeImpact.hospitalBedsByRequestedTime = bed - severeImpact.severeCasesByRequestedTime;
+  const rqt = impact.severeCasesByRequestedTime;
+  const sRqt = severeImpact.severeCasesByRequestedTime;
+  impact.hospitalBedsByRequestedTime = Math.trunc(bedAvailability - rqt);
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(bedAvailability - sRqt);
 
   // challenge three
-  impact.casesForICUByRequestedTime = 0.05 * impact.infectionsByRequestedTime;
-  severeImpact.casesForICUByRequestedTime = 0.05 * severeImpact.infectionsByRequestedTime;
-  impact.casesForVentilatorsByRequestedTime = 0.02 * impact.infectionsByRequestedTime;
-  severeImpact.casesForVentilatorsByRequestedTime = 0.02 * severeImpact.infectionsByRequestedTime;
+  const icuSevere = 0.05 * severeImpact.infectionsByRequestedTime;
+  const ventilators = 0.02 * severeImpact.infectionsByRequestedTime;
 
+  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impact.infectionsByRequestedTime);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(icuSevere);
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impact.infectionsByRequestedTime);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ventilators);
   // eslint variable name length fix
   const pop = data.region.avgDailyIncomePopulation;
   const avg = data.region.avgDailyIncomeInUSD;
@@ -43,7 +46,6 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * pop * avg * time;
 
   return {
-    data,
     impact,
     severeImpact
   };

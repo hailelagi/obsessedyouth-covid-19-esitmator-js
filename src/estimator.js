@@ -42,8 +42,8 @@ const covid19ImpactEstimator = (data) => {
   else if (data.periodType === 'weeks') rate = data.timeToElapse * 7;
   else if (data.periodType === 'months') rate = data.timeToElapse * 30;
 
-  impact.dollarsInFlight = impact.infectionsByRequestedTime * pop * avg * time;
-  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * pop * avg * time;
+  impact.dollarsInFlight = impact.infectionsByRequestedTime * pop * avg * rate;
+  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * pop * avg * rate;
 
   return {
     impact,

@@ -27,10 +27,11 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(bedAvailability - sRqt);
 
   // challenge three
+  const icuSevere = 0.05 * severeImpact.infectionsByRequestedTime;
   const ventilators = 0.02 * severeImpact.infectionsByRequestedTime;
 
-  impact.casesForICUByRequestedTime = 0.05 * impact.infectionsByRequestedTime;
-  severeImpact.casesForICUByRequestedTime = 0.05 * severeImpact.infectionsByRequestedTime;
+  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impact.infectionsByRequestedTime);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(icuSevere);
   impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impact.infectionsByRequestedTime);
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ventilators);
   // eslint variable name length fix

@@ -35,10 +35,10 @@ describe('Basic estimation check', () => {
     expect(covid19ImpactEstimator(data).impact.infectionsByRequestedTime).toBeCloseTo(69320772157440);
   });
   test('impact of severeCasesByRequestedTime', () => {
-    expect(covid19ImpactEstimator(data).impact.severeCasesByRequestedTime).toBeCloseTo(1039811582361);
+    expect(covid19ImpactEstimator(data).impact.severeCasesByRequestedTime).toBeCloseTo(10398115823616);
   });
   test('impact of hospitalBedsByRequestedTime', () => {
-    expect(covid19ImpactEstimator(data).impact.hospitalBedsByRequestedTime).toBeCloseTo(-10398115823616);
+    expect(covid19ImpactEstimator(data).impact.hospitalBedsByRequestedTime).toBeCloseTo(-10398114886685);
   });
   test('impact of casesForICUByRequestedTime', () => {
     expect(covid19ImpactEstimator(data).impact.casesForICUByRequestedTime).toBeCloseTo(3466038607872);
@@ -47,7 +47,7 @@ describe('Basic estimation check', () => {
     expect(covid19ImpactEstimator(data).impact.casesForVentilatorsByRequestedTime).toBeCloseTo(1386415443148);
   });
   test('impact of dollarsInFlight', () => {
-    expect(covid19ImpactEstimator(data).impact.dollarsInFlight).toBeCloseTo(24854962857050110n);
+    expect(covid19ImpactEstimator(data).impact.dollarsInFlight).toBeCloseTo(24854962857050110);
   });
   //severe case
     test('severe impact of currently infected', () => {
@@ -69,6 +69,6 @@ describe('Basic estimation check', () => {
       expect(covid19ImpactEstimator(data).severeImpact.casesForVentilatorsByRequestedTime).toBeCloseTo(6932077215744);
     });
     test('severeImpact of dollarsInFlight', () => {
-      expect(covid19ImpactEstimator(data).severeImpact.dollarsInFlight).toBeCloseTo(124274814285250560n);
+      expect(covid19ImpactEstimator(data).severeImpact.dollarsInFlight).toBeCloseTo(124274814285250560);
     });
 });
